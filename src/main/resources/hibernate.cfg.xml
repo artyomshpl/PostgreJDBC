@@ -11,7 +11,7 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
 
-        <mapping class="com.shep.models.User"/>
-        <mapping class="com.shep.models.Ticket"/>
+        <mapping class="com.shep.entities.User"/>
+        <mapping class="com.shep.entities.Ticket"/>
     </session-factory>
 </hibernate-configuration>

@@ -39,4 +39,16 @@ public class TicketDAO {
                     .list();
         }
     }
+
+    public void updateTicketType(int ticketId, TicketType ticketType) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+            String sql = "UPDATE Ticket SET ticket_type = ?::ticket_type WHERE id = ?";
+            session.createNativeQuery(sql)
+                    .setParameter(1, ticketType.name())
+                    .setParameter(2, ticketId)
+                    .executeUpdate();
+            transaction.commit();
+        }
+    }
 }

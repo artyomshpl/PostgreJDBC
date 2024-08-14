@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -21,7 +22,11 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ColumnDefault("CURRENT_TIMESTAMP")
     @Column(name = "creation_date")
     private Timestamp creationDate;
+
+    @PrePersist
+    protected void onCreate() {
+        creationDate = Timestamp.from(Instant.now());
+    }
 }
