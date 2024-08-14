@@ -1,7 +1,6 @@
 package com.shep.dao;
 
 import com.shep.entities.Ticket;
-import com.shep.entities.User;
 import com.shep.enums.TicketType;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,11 +16,11 @@ public class TicketDAO {
     public void saveTicket(int userId, TicketType ticketType) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            User user = session.get(User.class, userId);
-            Ticket ticket = new Ticket();
-            ticket.setUser(user);
-            ticket.setTicketType(ticketType);
-            session.save(ticket);
+            String sql = "INSERT INTO Ticket (user_id, ticket_type, creation_date) VALUES (?, CAST(? AS ticket_type), CURRENT_TIMESTAMP)";
+            session.createNativeQuery(sql)
+                    .setParameter(1, userId)
+                    .setParameter(2, ticketType.name())
+                    .executeUpdate();
             transaction.commit();
         }
     }
@@ -43,7 +42,7 @@ public class TicketDAO {
     public void updateTicketType(int ticketId, TicketType ticketType) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
-            String sql = "UPDATE Ticket SET ticket_type = ?::ticket_type WHERE id = ?";
+            String sql = "UPDATE Ticket SET ticket_type = CAST(? AS ticket_type) WHERE id = ?";
             session.createNativeQuery(sql)
                     .setParameter(1, ticketType.name())
                     .setParameter(2, ticketId)

@@ -56,7 +56,7 @@ public class PostgreApplication {
             userService.saveUser(randomName);
             System.out.println("Random user saved: " + randomName);
 
-            User randomUser = userService.getUserById(i + 2);
+            User randomUser = userService.getUserById(i + 3);
             if (randomUser != null) {
                 for (int j = 0; j < 2; j++) {
                     TicketType ticketType = (j % 2 == 0) ? TicketType.DAY : TicketType.WEEK;
