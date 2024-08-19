@@ -1,12 +1,12 @@
 package com.shep.entities;
 
 import com.shep.enums.TicketType;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.time.Instant;
 

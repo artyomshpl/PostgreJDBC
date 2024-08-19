@@ -1,11 +1,13 @@
 package com.shep;
 
+import com.shep.config.ApplicationConfig;
 import com.shep.entities.Ticket;
 import com.shep.entities.User;
 import com.shep.enums.TicketType;
-import com.shep.services.CombinedService;
 import com.shep.services.TicketService;
 import com.shep.services.UserService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.List;
 import java.util.Random;
@@ -13,9 +15,10 @@ import java.util.Random;
 public class PostgreApplication {
 
     public static void main(String[] args) {
-        UserService userService = new UserService();
-        TicketService ticketService = new TicketService();
-        CombinedService combinedService = new CombinedService();
+        ApplicationContext context = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+
+        UserService userService = context.getBean(UserService.class);
+        TicketService ticketService = context.getBean(TicketService.class);
 
         userService.saveUser("Test user");
         System.out.println("User saved successfully.");
@@ -44,7 +47,7 @@ public class PostgreApplication {
             System.out.println("Ticket ID: " + t.getId() + ", Type: " + t.getTicketType());
         }
 
-        combinedService.updateUserAndTicket(user.getId(), "Updated User", ticket.getId(), TicketType.WEEK);
+        userService.updateUserAndTicket(user.getId(), "Updated User", ticket.getId(), TicketType.WEEK);
         System.out.println("User and ticket updated successfully.");
 
         userService.deleteUserById(user.getId());

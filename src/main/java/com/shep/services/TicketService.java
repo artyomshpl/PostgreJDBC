@@ -3,15 +3,19 @@ package com.shep.services;
 import com.shep.dao.TicketDAO;
 import com.shep.entities.Ticket;
 import com.shep.enums.TicketType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TicketService {
 
     private final TicketDAO ticketDAO;
 
-    public TicketService() {
-        this.ticketDAO = new TicketDAO();
+    @Autowired
+    public TicketService(TicketDAO ticketDAO) {
+        this.ticketDAO = ticketDAO;
     }
 
     public void saveTicket(int userId, TicketType ticketType) {

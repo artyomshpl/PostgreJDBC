@@ -1,6 +1,6 @@
 package com.shep.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import java.time.Instant;
 @Getter
 @Setter
 @Entity
-@Table(name = "\"User\"")
+@Table(name = "\"User\"") //Using this because PostgreSQL has User as an included variable and other way it conflicts wit DB
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User_id_gen")
